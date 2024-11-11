@@ -1,0 +1,31 @@
+-- Load the customer orders data from S3
+data = LOAD '/home/cloudera/Desktop/data.txt' USING PigStorage('\t') 
+       AS (customer_id: int, name: chararray, age: int, location: chararray, 
+           order_id: int, order_date: chararray, amount: float);
+
+-- 1. Filter customers by age (18 and above)
+adults = FILTER data BY age >= 18;
+dump adults;
+
+-- 2. Group by customer and calculate total sales
+grouped_by_customer = GROUP data BY customer_id;
+total_sales = FOREACH grouped_by_customer GENERATE group AS customer_id, SUM(data.amount) AS total_amount;
+dump total_sales;
+
+-- 3. Join orders with customer information (simplified to generate required columns)
+orders_details = FOREACH data GENERATE order_id, name, location, order_date;
+dump order_details;
+
+-- 4. Remove duplicate orders based on order_id
+unique_orders = DISTINCT data;
+dump unique_orders;
+
+-- 5. Sort orders by amount (Top 3 highest orders)
+sorted_orders = ORDER data BY amount DESC;
+top_3_orders = LIMIT sorted_orders 3;
+dump top_3_orders;
+
+-- 6. Aggregating and filtering data (Total purchases above $500)
+customer_total_purchases = FOREACH grouped_by_customer GENERATE group AS customer_id, SUM(data.amount) AS total_amount;
+high_spenders = FILTER customer_total_purchases BY total_amount > 500;
+dump high_spenders;

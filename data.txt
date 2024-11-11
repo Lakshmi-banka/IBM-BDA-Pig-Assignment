@@ -1,0 +1,11 @@
+customer_id	name	age	location	order_id	order_date	amount
+101	Alice	25	New York	1001	2023-01-05	150.00
+102	Bob	30	San Diego	1002	2023-02-10	220.50
+103	Charlie	35	Chicago	1003	2023-03-12	300.00
+104	David	22	Seattle	1004	2023-04-01	450.00
+105	Eve	28	Boston	1005	2023-05-23	620.75
+101	Alice	25	New York	1006	2023-06-08	200.00
+102	Bob	30	San Diego	1007	2023-07-14	180.75
+103	Charlie	35	Chicago	1008	2023-08-20	400.00
+104	David	22	Seattle	1009	2023-09-01	150.00
+105	Eve	28	Boston	1010	2023-10-17	330.00
